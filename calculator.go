@@ -35,6 +35,12 @@ func main() {
             continue
         }
 
+        // Проверка на диапазон чисел
+		if num1 < 1 || num1 > 10 || num2 < 1 || num2 > 10 {
+			fmt.Println("Числа должны быть от 1 до 10.")
+			continue
+		}
+
         // Выполнение операции
         result, err := calculate(num1, operator, num2)
         if err != nil {
