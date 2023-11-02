@@ -13,10 +13,10 @@ func main() {
 			break
 		}
 
-		fmt.Println("Введите первое число:")
-		num1 := readNumber()
-		fmt.Println("Введите второе число:")
-		num2 := readNumber()
+		fmt.Println("Введите первое целое число:")
+		num1 := readInteger()
+		fmt.Println("Введите второе целое число:")
+		num2 := readInteger()
 
 		result, err := calculate(num1, operator, num2)
 		if err != nil {
@@ -28,23 +28,27 @@ func main() {
 }
 
 func readOperator() string {
-	var operator string
-	fmt.Scanln(&operator)
-	return operator
+    var operator string
+    fmt.Scanln(&operator)
+    if operator != "+" && operator != "-" && operator != "*" && operator != "/" {
+        fmt.Println("Неверный оператор. Допустимые операторы: +, -, *, /")
+        return readOperator()
+    }
+    return operator
 }
 
-func readNumber() float64 {
+func readInteger() int {
 	var input string
 	fmt.Scanln(&input)
-	num, err := strconv.ParseFloat(input, 64)
+	num, err := strconv.Atoi(input)
 	if err != nil {
-		fmt.Println("Неверный формат числа.")
-		return readNumber()
+		fmt.Println("Неверный формат числа. Введите целое число")
+		return readInteger()
 	}
 	return num
 }
 
-func calculate(x float64, operator string, y float64) (float64, error) {
+func calculate(x int, operator string, y int) (int, error) {
 	switch operator {
 	case "+":
 		return x + y, nil
